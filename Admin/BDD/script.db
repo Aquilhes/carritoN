@@ -1,0 +1,48 @@
+CREATE TABLE tb_usuarios(
+id int not null auto_increment primary key,
+nombre varchar(50) not null,
+apellido varchar(50) not null,
+email varchar(150) not null,
+username varchar(50) not null,
+passwd varchar(50) not null
+);
+
+CREATE TABLE tb_clientes(
+id int not null auto_increment primary key,
+nombre varchar(50) not null,
+apellido varchar(50) not null,
+identificacion varchar(13) not null,
+email varchar(50) not null,
+fechaNacimiento date,
+detalle varchar(500) not null
+);
+
+CREATE TABLE tb_productos(
+id int not null auto_increment primary key,
+nombre varchar(50) not null,
+marca varchar(50) not null,
+detalle varchar(500) not null,
+precio double not null,
+stock int not null,
+foto varchar(50) not null
+);
+CREATE TABLE tb_facturas(
+id int not null auto_increment primary key,
+fechaCreacion datetime(1) NULL DEFAULT CURRENT_TIMESTAMP(1),
+subtotal double not null,
+valorIva double not null,
+idCliente int not null,
+FOREIGN KEY (idCliente) REFERENCES tb_clientes (id)
+);
+
+CREATE TABLE tb_transacciones(
+id int not null auto_increment primary key,
+cantidad int not null,
+importe double not null,
+precio double not null,
+idProducto int not null,
+idFactura int not null,
+FOREIGN KEY (idProducto) REFERENCES tb_productos(id),
+FOREIGN KEY (idFactura) REFERENCES tb_facturas(id)
+
+);
